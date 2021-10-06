@@ -2,10 +2,9 @@ import logging
 
 import aiohttp_cors
 from aiohttp import web
-from bson import ObjectId
 from dbconnection import DBConnection
 
-db = DBConnection('mongodb://root:todo@localhost:27017')
+db = DBConnection('mongodb://root:todo@mongo:27017')
 
 
 def get_all_todos(request):
@@ -149,8 +148,10 @@ async def associate_tag_with_todo(request):
         return web.json_response({'error': 'Tag not found'})
 
     db.associate_tag_with_todo(todo_id, tag_id)
-    return web.Response(status=204)
-
+    return web.Response(
+        headers={'Location': todo['url']},
+        status=303
+    )
 
 def remove_tags_from_todo(request):
     todo_id = str(request.match_info['id'])

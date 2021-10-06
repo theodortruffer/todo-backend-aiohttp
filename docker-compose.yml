@@ -1,14 +1,14 @@
 version: '3.1'
 
 services:
-#  python:
-#    build: ./src
-#    depends_on:
-#      - mongo
-#    volumes:
-#      - ./src:/usr/src/app
-#    ports:
-#      - 8080:8080
+  python:
+    build: ./src
+    depends_on:
+      - mongo
+    volumes:
+      - ./src:/usr/src/app
+    ports:
+      - 8080:8080
   mongo:
     image: mongo
     restart: always
